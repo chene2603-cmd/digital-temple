@@ -1,40 +1,15 @@
 cat > main.py <<'EOF'
-import requests
-import sys
-# 强制编码 UTF-8
-sys.stdout.reconfigure(encoding='utf-8')
-
-from config import API_KEY, MODEL
-
-def help_me():
-    prompt = "微信小游戏Failed to fetch怎么解决，给3条简单步骤"
-
-    url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation"
-    headers = {
-        "Authorization": "Bearer " + API_KEY,
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": MODEL,
-        "input": {
-            "messages": [
-                {"role": "user", "content": prompt}
-            ]
-        }
-    }
-
-    try:
-        res = requests.post(url, json=data, headers=headers)
-        res.raise_for_status()
-        j = res.json()
-        print(j["output"]["choices"][0]["message"]["content"])
-    except Exception as e:
-        print("出错:", str(e))
-        print("\n解决Failed to fetch：")
-        print("1. 去微信公众平台加域名白名单")
-        print("2. 接口必须用https，不能用http")
-        print("3. 检查网络能不能访问接口")
+def fix_failed_to_fetch():
+    print("=== 微信小游戏 Failed to fetch 专业解决方案 ===")
+    print("")
+    print("1. 登录微信公众平台 → 开发管理 → 开发设置")
+    print("2. 把你的接口域名加到【服务器域名】白名单")
+    print("3. 接口必须用 https，不能用 http")
+    print("4. 检查手机网络是否能访问该接口")
+    print("5. 在微信开发者工具里点 Network 看具体报错")
+    print("")
+    print("只要做前3步，90% 的问题直接解决。")
 
 if __name__ == "__main__":
-    help_me()
+    fix_failed_to_fetch()
 EOF
